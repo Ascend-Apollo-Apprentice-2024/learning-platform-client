@@ -1,12 +1,15 @@
+# .do/deploy.template.yaml
+
 services:
   - name: web
-    run_command: npm start  # Command to start your application
+    run_command: npm start
     environment_slug: node-js
 
     build:
-      - name: Install and fix dependencies
+      - name: Clear npm cache, install dependencies, and fix vulnerabilities
         run: |
-          npm audit fix --force
+          npm cache clean --force  # Clears the npm cache
           npm install
+          npm audit fix --force
       - name: Build application
-        run: npm run build  # Customize if you have a build command
+        run: npm run build
